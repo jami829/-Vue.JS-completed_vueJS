@@ -3,9 +3,21 @@
     <div id="overlay" @click="handleModal"></div>
     <div id="contents_filter">
       <h2>필터</h2>
+      <div id="close_icon" @click="handleModal">
+        <div id="close1"></div>
+        <div id="close2"></div>
+      </div>
       <div>
-        <div v-for="(item, idx) in categoryArr" :key="idx">
-          <input type="checkbox" v-model="isChecked[item.id - 1].checked" />
+        <div
+          v-for="(item, idx) in categoryArr"
+          :key="idx"
+          class="input_checkbox"
+        >
+          <input
+            type="checkbox"
+            style="zoom: 1.5"
+            v-model="isChecked[item.id - 1].checked"
+          />
           <span>{{ item.name }}</span>
         </div>
       </div>
@@ -65,6 +77,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 400;
 
   #overlay {
     background: rgba(0, 0, 0, 0.7);
@@ -79,15 +92,54 @@ export default {
     position: relative;
     padding: 15px 30px;
     background: white;
+
+    #close_icon {
+      position: absolute;
+      top: 20px;
+      right: 15px;
+      height: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      #close1 {
+        width: 15px;
+        border: 1px solid #adb5bd;
+        transform: rotate(45deg) translate(1.88px, 1px);
+        background: #adb5bd;
+      }
+      #close2 {
+        width: 15px;
+        border: 1px solid #adb5bd;
+        background: #adb5bd;
+        transform: rotate(-45deg);
+      }
+    }
+    .input_checkbox {
+      font-size: 22px;
+      span {
+        margin-left: 1px;
+        line-height: 1.56;
+      }
+    }
   }
 
   button {
     border: 0;
     background: #00c854;
+    border-radius: 3px;
+    margin: 30px 0;
+    margin-bottom: 15px;
+    float: right;
     color: white;
-    width: 55px;
-    height: 19px;
+    width: 99px;
+    height: 40px;
     font-size: 16px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>
