@@ -14,23 +14,23 @@
       <div id="contents_box_main">
         <div id="filter_box">
           <span id="sort">
-            <span>
+            <div id="asc_box">
               <span
                 v-if="options.params.ord === 'asc'"
                 class="order_icon_active"
               >
               </span>
               <span v-else class="order_icon"></span>
-              <span @click="handleAsc">오름차순</span>
-            </span>
-            <span>
+              <span @click="handleAsc" id="asc">오름차순</span>
+            </div>
+            <div id="desc_box">
               <span
                 v-if="options.params.ord === 'desc'"
                 class="order_icon_active"
               ></span>
               <span v-else class="order_icon"></span>
-              <span @click="handleDesc">내림차순</span>
-            </span>
+              <span @click="handleDesc" id="desc">내림차순</span>
+            </div>
           </span>
           <span id="filter_btn" @click="openFilter">필터</span>
         </div>
@@ -203,28 +203,49 @@ export default {
     // display: flex;
     padding: 40px;
 
-    .order_icon_active {
-      width: 10px;
-      height: 10px;
-      background: black;
-    }
-    .order_icon {
-      width: 13px;
-      height: 10px;
-      background: black;
-    }
     #filter_box {
       display: flex;
       justify-content: space-between;
       margin-bottom: 14px;
 
       #sort {
+        display: flex;
+        #asc_box {
+          display: flex;
+          align-items: center;
+          margin-right: 13px;
+        }
+        #desc_box {
+          display: flex;
+          align-items: center;
+        }
+        .order_icon_active {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          vertical-align: middle;
+          border-radius: 10px;
+          background: #00c854;
+        }
+        .order_icon {
+          display: inline-block;
+          border-radius: 10px;
+          width: 6px;
+          height: 6px;
+          background: #e1e4e7;
+        }
         span {
           font-size: 13px;
           margin-left: 4px;
           &:hover {
             cursor: pointer;
           }
+        }
+        #asc {
+          color: #495057;
+        }
+        #desc {
+          color: #e1e4e7;
         }
       }
       #filter_btn {
