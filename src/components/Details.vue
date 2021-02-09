@@ -87,19 +87,11 @@ export default {
     margin-bottom: 15px;
     color: #282c30;
     line-height: 1.56;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
   .contents_details {
     font-size: 16px;
     color: #495057;
     line-height: 1.56;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
   .createdAt_details {
     margin-top: 21px;
