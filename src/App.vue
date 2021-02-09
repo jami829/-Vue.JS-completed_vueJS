@@ -52,6 +52,10 @@ export default {
     align-items: center;
     border-radius: 3px;
     font-size: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>
