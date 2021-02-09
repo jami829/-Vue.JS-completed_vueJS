@@ -235,17 +235,19 @@ export default {
           background: #e1e4e7;
         }
         span {
-          font-size: 13px;
-          margin-left: 4px;
           &:hover {
             cursor: pointer;
           }
         }
         #asc {
           color: #495057;
+          font-size: 13px;
+          margin-left: 5px;
         }
         #desc {
           color: #e1e4e7;
+          font-size: 13px;
+          margin-left: 5px;
         }
       }
       #filter_btn {
