@@ -103,6 +103,7 @@ export default {
     .reply_title {
       line-height: 1.56;
       color: #495057;
+      margin-bottom: 10px;
 
       span {
         color: #00c854;
