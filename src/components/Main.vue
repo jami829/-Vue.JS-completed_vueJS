@@ -58,7 +58,7 @@
               />
             </div>
           </div>
-          <div v-else id="empty_space">내용이 없습니다.</div>
+          <div v-else id="empty_space">필터를 선택해주세요 :)</div>
 
           <div v-if="loading">로딩 중...</div>
         </div>
