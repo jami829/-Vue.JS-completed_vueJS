@@ -70,7 +70,7 @@ export default {
 #details {
   // border: 1px solid #e1e4e7;
   // border-radius: 5px;
-  padding: 50px 45px;
+  padding: 50px 150px;
   // margin-bottom: 30px;
 
   .container_details {
