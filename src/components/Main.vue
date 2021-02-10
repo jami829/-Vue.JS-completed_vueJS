@@ -46,16 +46,19 @@
           </div>
           <span id="filter_btn" @click="openFilter">필터</span>
         </div>
-        <div id="container_main-box">
-          <div v-for="(feed, idx) in feedArr" :key="idx">
-            <Card :feed="feed" />
-            <!-- 페이지당 받아오는 광고는 10개이지만 게시할 수 있는 광고는 페이지당 약 3개.
+        <div id="container_main_box">
+          <div v-if="feedArr.length">
+            <div v-for="(feed, idx) in feedArr" :key="idx">
+              <Card :feed="feed" />
+              <!-- 페이지당 받아오는 광고는 10개이지만 게시할 수 있는 광고는 페이지당 약 3개.
            따라서 어느 광고를 게시할지 특정이 되지 않아 받아온 광고를 배열에 저장 후 랜덤으로 게시하게 설정 -->
-            <Ads
-              :ads="adsArr[Math.floor(Math.random() * adsArr.length)]"
-              v-if="(idx + 1) % 3 === 0"
-            />
+              <Ads
+                :ads="adsArr[Math.floor(Math.random() * adsArr.length)]"
+                v-if="(idx + 1) % 3 === 0"
+              />
+            </div>
           </div>
+          <div v-else id="empty_space">내용이 없습니다.</div>
 
           <div v-if="loading">로딩 중...</div>
         </div>
@@ -107,17 +110,21 @@ export default {
     getFeeds() {
       // 데이터를 받아오는 동안 로딩바 렌더
       this.loading = true;
-      this.$axios
-        .get("https://problem.comento.kr/api/list", this.options)
-        .then((response) => {
-          console.log("뭘받아와 겟피드", response.data.data);
-          // 기존 state 값의 불변성 유지를 위해 새로운 배열에 spread를 사용해 새로운 배열에 구현
-          // this.feedArr = [...this.feedArr, ...response.data.data];
-          this.$store.commit("feeds", response.data.data);
-          this.feedArr = this.$store.state.feedArr;
-          console.log("new Feeds", this.feedArr);
-          console.log("store feeds", this.$store.state.feedArr);
-        });
+      if (!this.options.params.category) {
+        this.feedArr = [];
+      } else {
+        this.$axios
+          .get("https://problem.comento.kr/api/list", this.options)
+          .then((response) => {
+            console.log("뭘받아와 겟피드", response.data.data);
+            // 기존 state 값의 불변성 유지를 위해 새로운 배열에 spread를 사용해 새로운 배열에 구현
+            // this.feedArr = [...this.feedArr, ...response.data.data];
+            this.$store.commit("feeds", response.data.data);
+            this.feedArr = this.$store.state.feedArr;
+            console.log("new Feeds", this.feedArr);
+            console.log("store feeds", this.$store.state.feedArr);
+          });
+      }
       // 데이터를 받아오면 로딩바 해제
       this.loading = false;
     },
@@ -160,10 +167,11 @@ export default {
     // 그 값으로 feed 리스트들을 axios요청하게 한다.
     // Modal 컴포넌트에서 저장버튼 눌렀을 시 작동.
     getFilterValue() {
-      // this.feedArr = [];
+      // 리스트 axios요청을 하기 위해 기본값 재셋팅
       this.$store.commit("ressetFeeds");
       this.options.params.category = [];
       this.$store.state.isChecked.forEach((item) => {
+        // store에 저장된 check의 불린 상태가 true 인 것만.
         if (item.checked) {
           this.options.params.category = [
             ...this.options.params.category,
@@ -184,7 +192,7 @@ export default {
     // await this.getFeeds();
     // this.feedArr = this.$store.state.feedArr;
   },
-  mounted: function () {},
+
   updated: function () {
     console.log("zkspxkzp", this.options.params.category);
     // scroll event listner 등록
@@ -232,6 +240,7 @@ export default {
   #contents_box_main {
     // display: flex;
     padding-left: 40px;
+    width: 100%;
 
     #filter_box {
       display: flex;
@@ -291,6 +300,18 @@ export default {
         &:hover {
           cursor: pointer;
         }
+      }
+    }
+    #container_main_box {
+      #empty_space {
+        border: 1px solid #e1e4e7;
+        border-radius: 5px;
+        padding: 50px 30px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
       }
     }
   }
