@@ -19,7 +19,7 @@ export default {
 
   #contents {
     font-size: 16px;
-    padding-left: 45px;
+    padding-left: 150px;
   }
 }
 </style>
