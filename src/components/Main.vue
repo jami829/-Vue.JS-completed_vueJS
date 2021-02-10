@@ -8,9 +8,7 @@
     />
     <Nav />
     <div id="container_main">
-      <div id="login_btn">
-        <span>로그인</span>
-      </div>
+      <button id="login_btn">로그인</button>
       <div id="contents_box_main">
         <div id="filter_box">
           <div id="sort">
@@ -209,10 +207,10 @@ export default {
   margin: 50px 150px;
 
   #login_btn {
-    width: 235px;
+    border: unset;
+    width: 415px;
     height: 60px;
     background: #00c854;
-    padding: 20px 91px 13px 87px;
     display: flex;
     justify-content: center;
     align-items: center;
