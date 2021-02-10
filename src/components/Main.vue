@@ -13,7 +13,7 @@
       </div>
       <div id="contents_box_main">
         <div id="filter_box">
-          <span id="sort">
+          <div id="sort">
             <div id="asc_box">
               <span
                 v-if="options.params.ord === 'asc'"
@@ -21,7 +21,13 @@
               >
               </span>
               <span v-else class="order_icon"></span>
-              <span @click="handleAsc" id="asc">오름차순</span>
+              <span
+                @click="handleAsc"
+                v-if="options.params.ord === 'asc'"
+                id="ord_on"
+                >오름차순</span
+              >
+              <span @click="handleAsc" v-else id="ord_off">오름차순</span>
             </div>
             <div id="desc_box">
               <span
@@ -29,12 +35,18 @@
                 class="order_icon_active"
               ></span>
               <span v-else class="order_icon"></span>
-              <span @click="handleDesc" id="desc">내림차순</span>
+              <span
+                @click="handleDesc"
+                v-if="options.params.ord === 'desc'"
+                id="ord_on"
+                >내림차순</span
+              >
+              <span @click="handleDesc" v-else id="ord_off">내림차순</span>
             </div>
-          </span>
+          </div>
           <span id="filter_btn" @click="openFilter">필터</span>
         </div>
-        <div id="container_main">
+        <div id="container_main-box">
           <div v-for="(feed, idx) in feedArr" :key="idx">
             <Card :feed="feed" />
             <!-- 페이지당 받아오는 광고는 10개이지만 게시할 수 있는 광고는 페이지당 약 3개.
@@ -193,15 +205,26 @@ export default {
 
 <style lang="scss" scoped>
 #container_main {
-  display: flex !important;
-  flex-direction: column;
+  display: flex;
+  margin: 50px 150px;
 
   #login_btn {
+    width: 235px;
+    height: 60px;
+    background: #00c854;
+    padding: 20px 91px 13px 87px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.14;
+    border-radius: 5px;
   }
   #contents_box_main {
     // display: flex;
-    padding: 40px;
+    padding-left: 40px;
 
     #filter_box {
       display: flex;
@@ -213,11 +236,13 @@ export default {
         #asc_box {
           display: flex;
           align-items: center;
+          height: 16px;
           margin-right: 13px;
         }
         #desc_box {
           display: flex;
           align-items: center;
+          height: 16px;
         }
         .order_icon_active {
           display: inline-block;
@@ -239,12 +264,12 @@ export default {
             cursor: pointer;
           }
         }
-        #asc {
+        #ord_on {
           color: #495057;
           font-size: 13px;
           margin-left: 5px;
         }
-        #desc {
+        #ord_off {
           color: #e1e4e7;
           font-size: 13px;
           margin-left: 5px;
