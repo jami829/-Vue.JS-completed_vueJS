@@ -71,6 +71,7 @@ export default {
   .container_ads {
     position: relative;
     display: flex;
+    // flex-direction: column !important;
     .photo {
       margin-right: 29.5px;
       img {
@@ -121,6 +122,20 @@ export default {
       &:hover {
         cursor: pointer;
         color: black;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container_ads {
+    flex-direction: column;
+    .photo {
+      margin-right: unset !important;
+      margin-bottom: 23.5px;
+      img {
+        width: 667px !important;
+        height: 379px !important;
       }
     }
   }
