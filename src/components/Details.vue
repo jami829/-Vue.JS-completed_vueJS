@@ -2,11 +2,18 @@
   <div>
     <Nav />
     <div id="details">
+      <div class="user_email">{{ details.user.email }}</div>
       <div class="container_details">
         <div class="title_details">{{ details.title }}</div>
         <div class="contents_details">{{ details.contents }}</div>
         <div class="createdAt_details">
-          {{ details.created_at.substring(0, 10) }}
+          <span>
+            {{ details.user.name }}
+          </span>
+          <span> | </span>
+          <span>
+            {{ details.created_at.substring(0, 10) }}
+          </span>
         </div>
       </div>
       <div class="container_reply">
@@ -80,6 +87,12 @@ export default {
     padding-bottom: 22px;
     margin-bottom: 30px;
   }
+  .user_email {
+    // margin-top: 25px;
+    color: #495057;
+    padding-left: 30px;
+    margin-bottom: 15px;
+  }
   .title_details {
     font-weight: bold;
     font-size: 18px;
@@ -97,6 +110,9 @@ export default {
     margin-top: 21px;
     color: #adb5bd;
     font-size: 13px;
+    span {
+      margin-right: 10px;
+    }
   }
 
   .container_reply {
