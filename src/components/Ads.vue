@@ -7,32 +7,28 @@
       </div>
       <div class="cotents_box_ads">
         <!-- 카드 타이틀 줄기, 펼치기, 접기 -->
-        <div class="title_ads" v-if="ads.title.length < 100">
-          {{ ads.title }}
+
+        <div class="title_ads" v-if="viewMore">
+          <span>
+            {{ ads.title }}
+          </span>
+          <span class="fold_ads" v-if="viewMore" @click="view">접기</span>
         </div>
-        <div class="title_ads" v-else-if="ads.title.length >= 100 && !viewMore">
-          {{ ads.title.substring(0, 120) }}...
+        <div class="title_ads" v-else>
+          <span> {{ ads.title.substring(0, 120) }}... </span>
+          <span class="view_ads" v-if="!viewMore" @click="view">더보기</span>
         </div>
 
-        <div class="title_ads" v-if="viewMore">{{ ads.title }}</div>
-
-        <span class="view_ads" v-if="!viewMore" @click="view">더보기</span>
-        <span class="fold_ads" v-if="viewMore" @click="view">접기</span>
         <!-- 카드 컨텐츠 줄기이, 펼치기, 접기 -->
-        <div class="contents_ads" v-if="ads.contents.length < 100">
-          {{ ads.contents }}
-        </div>
-        <div
-          class="contents_ads"
-          v-else-if="ads.contents.length >= 100 && !viewMoreSub"
-        >
-          {{ ads.contents.substring(0, 120) }}...
+
+        <div class="contents_ads" v-if="viewMoreSub">{{ ads.contents }}</div>
+        <div class="contents_ads" v-else>
+          <span> {{ ads.contents.substring(0, 120) }}... </span>
+          <span class="view_sub_ads" v-if="!viewMoreSub" @click="viewSub"
+            >더보기</span
+          >
         </div>
         <!-- <div class="contents_ads">{{ ads.contents }}</div> -->
-        <div class="contents_ads" v-if="viewMoreSub">{{ ads.contents }}</div>
-        <span class="view_sub_ads" v-if="!viewMoreSub" @click="viewSub"
-          >더보기</span
-        >
       </div>
     </div>
   </div>
@@ -101,9 +97,7 @@ export default {
     // 타이틀
     .view_ads {
       color: rgba(128, 128, 128, 0.473);
-      position: absolute;
-      top: 35px;
-      right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;
@@ -112,9 +106,7 @@ export default {
     }
     .fold_ads {
       color: rgba(128, 128, 128, 0.473);
-      position: absolute;
-      top: 120px;
-      right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;
@@ -124,9 +116,7 @@ export default {
     // 컨텐츠
     .view_sub_ads {
       color: rgba(128, 128, 128, 0.473);
-      position: absolute;
-      top: 105px;
-      right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;

@@ -10,7 +10,7 @@ export default new Vuex.Store({
     isChecked: [
       { id: 1, checked: true },
       { id: 2, checked: true },
-      { id: 3, checked: true }
+      { id: 3, checked: true },
     ],
     feedArr: []
   },

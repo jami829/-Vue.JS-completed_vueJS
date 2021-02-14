@@ -9,8 +9,13 @@
             ? "banana"
             : "coconut"
         }}</span>
-        <span>{{ feed.id }}</span>
+
+        <div class="feed_id">
+          {{ feed.id }}
+          <div class="feed_id_info">게시글이 등록된 순서입니다.</div>
+        </div>
       </div>
+
       <div class="division_line"></div>
       <div class="card_detail">
         <span>{{ feed.user_id }}</span>
@@ -121,6 +126,19 @@ export default {
       justify-content: space-between;
       font-size: 13px;
       color: #7e848a;
+
+      .feed_id_info {
+        display: none;
+        position: absolute;
+        top: -10%;
+        right: -2%;
+      }
+      .feed_id {
+        &:hover .feed_id_info {
+          display: flex;
+        }
+        cursor: pointer;
+      }
     }
     .division_line {
       border: 1px solid #e1e4e7;
@@ -154,9 +172,7 @@ export default {
     // 타이틀
     .view {
       color: rgba(128, 128, 128, 0.473);
-      // position: absolute;
-      // top: 91px;
-      // right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;
@@ -165,9 +181,7 @@ export default {
     }
     .fold {
       color: rgba(128, 128, 128, 0.473);
-      // position: absolute;
-      // top: 160px;
-      // right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;
@@ -177,9 +191,7 @@ export default {
     // 컨텐츠
     .view_sub {
       color: rgba(128, 128, 128, 0.473);
-      // position: absolute;
-      // top: 150px;
-      // right: 0px;
+      margin-left: 13px;
       font-size: 13px;
       &:hover {
         cursor: pointer;

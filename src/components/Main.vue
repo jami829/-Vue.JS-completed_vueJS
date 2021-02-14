@@ -8,6 +8,18 @@
     />
     <Nav />
     <div id="container_main">
+      <!-- 로딩 애니메이션 -->
+      <div class="loading_container" v-if="loading">
+        <div class="loading_stick"></div>
+        <div class="loading_stick"></div>
+        <div class="loading_stick"></div>
+        <div class="loading_stick"></div>
+        <div class="loading_stick"></div>
+        <div class="loading_stick"></div>
+
+        <h1>Loading...</h1>
+      </div>
+
       <div id="login_btn">
         <button>로그인</button>
       </div>
@@ -60,7 +72,15 @@
           </div>
           <div v-else id="empty_space">필터를 선택해주세요 :)</div>
 
-          <div v-if="loading">로딩 중...</div>
+          <!-- <div v-if="loading">로딩 중...</div> -->
+          <div class="loading_container" v-if="loading">
+            <div class="loading_stick"></div>
+            <div class="loading_stick"></div>
+            <div class="loading_stick"></div>
+            <div class="loading_stick"></div>
+            <div class="loading_stick"></div>
+            <div class="loading_stick"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -187,13 +207,17 @@ export default {
   },
   // 스크롤 전 리스트
   created: async function () {
-    this.getFilterValue();
-    await this.getAdsList();
-    // await this.getFeeds();
+    // this.getFilterValue();
+    // await this.getAdsList();
     // this.feedArr = this.$store.state.feedArr;
   },
+  mounted: async function () {
+    await this.getFilterValue();
+    await this.getAdsList();
+    // await this.getFeeds();
+  },
 
-  updated: function () {
+  updated: async function () {
     console.log("zkspxkzp", this.options.params.category);
     // scroll event listner 등록
     window.addEventListener("scroll", this.handleScroll);
@@ -215,6 +239,67 @@ export default {
 #container_main {
   display: flex;
   margin: 50px 150px;
+
+  /* 로딩 애니메이션 */
+
+  .loading_container {
+    $text_color: gray;
+    $stick_color: gray; // 모든 스틱의 색 변경
+    $stick_length: 30px; // 모든 스틱의 길이
+    $stick_distance: -4px;
+
+    @import url(https://fonts.googleapis.com/css?family=Lato:100,300,700);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+
+    width: $stick_length * 10;
+    padding-top: 180px;
+    margin: auto;
+    vertical-align: middle;
+
+    h1 {
+      font-family: "Lato";
+      color: $text_color;
+      text-transform: uppercase;
+      font-size: 1em;
+      letter-spacing: 1.5px;
+      text-align: center;
+      width: 155px;
+      margin-top: 20px;
+      animation: fade 2s infinite;
+    }
+    .loading_stick {
+      width: $stick_length;
+      height: 3px;
+      background: $stick_color;
+      display: inline-block;
+      margin-left: $stick_distance;
+    }
+
+    .loading_stick:nth-child(n) {
+      transform: rotate(30deg);
+      animation: fall 2s infinite;
+    }
+    .loading_stick:nth-child(2n) {
+      transform: rotate(-30deg);
+      animation: rise 2s infinite;
+    }
+
+    @keyframes fall {
+      50% {
+        transform: rotate(-30deg);
+      }
+    }
+    @keyframes rise {
+      50% {
+        transform: rotate(30deg);
+      }
+    }
+  }
 
   #login_btn {
     height: 60px;

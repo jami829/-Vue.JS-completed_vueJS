@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @contextmenu="blockRightClick">
     <div id="scrollToTop" @click="scrollToTop">TOP</div>
 
     <router-view></router-view>
@@ -28,6 +28,16 @@ export default {
         document.querySelector("#scrollToTop").style.display = "none";
       }
     },
+    // 우클릭 방지
+    blockRightClick(e) {
+      alert(
+        "저작권 보호를 위해 복사를 금지하고 있습니다. 넓은 양해 부탁드립니다:)"
+      );
+      e.preventDefault();
+    },
+  },
+  created: function () {
+    window.document.ondragstart = new Function("return false");
   },
 
   mounted: function () {
@@ -40,6 +50,13 @@ export default {
 <style lang="scss" scoped>
 #app {
   position: relative;
+  /* 드래그 방지 */
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+
   #scrollToTop {
     background: rgba(128, 128, 128, 0.5);
     width: 25px;
