@@ -110,7 +110,7 @@ export default {
       options: {
         params: {
           page: 1,
-          ord: "asc",
+          ord: "",
           limit: 10,
           category: [],
         },
@@ -141,6 +141,12 @@ export default {
             // this.feedArr = [...this.feedArr, ...response.data.data];
             this.$store.commit("feeds", response.data.data);
             this.feedArr = this.$store.state.feedArr;
+            // if (this.options.params.ord === "desc") {
+            //   this.feedArr = this.descFeeds;
+            // } else {
+            //   this.feedArr = this.$store.state.feedArr;
+            // }
+
             console.log("new Feeds", this.feedArr);
             console.log("store feeds", this.$store.state.feedArr);
           });
@@ -172,12 +178,22 @@ export default {
         await this.getFeeds();
       }
     },
-    // 오름차순, 내림차순 정렬: updataed에서 실행
+
     handleAsc() {
+      this.options.params.page = 1;
       this.options.params.ord = "asc";
+      this.$store.commit("handleOrd", "asc");
+      this.feedArr = [];
+      this.$store.commit("resetFeeds");
+      this.getFeeds();
     },
     handleDesc() {
+      this.options.params.page = 1;
       this.options.params.ord = "desc";
+      this.$store.commit("handleOrd", "desc");
+      this.feedArr = [];
+      this.$store.commit("resetFeeds");
+      this.getFeeds();
     },
     openFilter() {
       this.isModalOpen = !this.isModalOpen;
@@ -188,7 +204,7 @@ export default {
     // Modal 컴포넌트에서 저장버튼 눌렀을 시 작동.
     getFilterValue() {
       // 리스트 axios요청을 하기 위해 기본값 재셋팅
-      this.$store.commit("ressetFeeds");
+      this.$store.commit("resetFeeds");
       this.options.params.category = [];
       this.$store.state.isChecked.forEach((item) => {
         // store에 저장된 check의 불린 상태가 true 인 것만.
@@ -207,26 +223,17 @@ export default {
   },
   // 스크롤 전 리스트
   created: async function () {
-    // this.getFilterValue();
-    // await this.getAdsList();
-    // this.feedArr = this.$store.state.feedArr;
+    this.options.params.ord = this.$store.state.ord;
   },
   mounted: async function () {
     await this.getFilterValue();
     await this.getAdsList();
-    // await this.getFeeds();
   },
 
   updated: async function () {
     console.log("zkspxkzp", this.options.params.category);
     // scroll event listner 등록
     window.addEventListener("scroll", this.handleScroll);
-
-    if (this.options.params.ord === "desc") {
-      this.feedArr = this.descFeeds;
-    } else {
-      this.feedArr = this.$store.state.feedArr;
-    }
   },
   // scroll event listner 해제
   destroyed: function () {
@@ -238,7 +245,6 @@ export default {
 <style lang="scss" scoped>
 #container_main {
   display: flex;
-  // margin: 50px 150px;
   margin: 50px 7.8%;
 
   /* 로딩 애니메이션 */

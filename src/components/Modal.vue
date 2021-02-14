@@ -13,12 +13,7 @@
           :key="idx"
           class="input_checkbox"
         >
-          <!-- <input
-            type="checkbox"
-            style="zoom: 1.5"
-            @click="handleChecked(idx)"
-            v-bind:checked="checked[idx].checked"
-          /> -->
+          <!-- <input type="checkbox" style="zoom: 1.5" v-model="checked[idx]" /> -->
           <input
             type="checkbox"
             style="zoom: 1.5"
@@ -40,58 +35,47 @@ export default {
     return {
       categoryArr: [],
       modalOpen: this.isModalOpen,
-      // checked: [],
-      // isChecked: this.$store.state.isChecked.slice(),
+      checked: [],
     };
   },
   methods: {
     handleModal() {
       this.$emit("close-modal");
     },
-    // 체크박스 클릭할 때마다 불린 값 변동, 변동된 값을 바로 store에 영향주기 & 모달 끄기
-    handleChecked(idx) {
-      //!! 인덱스 넘버가 문제가 된 듯.
-      this.checked[idx].checked = !this.checked[idx].checked;
-    },
 
-    // saveChecked() {
-    //   this.$emit("checked");
-    //   this.$store.commit("saveChecked", this.checked);
-    // },
+    saveChecked() {
+      this.$emit("checked");
+      this.$store.commit("saveChecked", this.checked);
+    },
 
     getCategory() {
       this.$axios
         .get("https://problem.comento.kr/api/category")
         .then((response) => {
           this.categoryArr = [...response.data.category];
-          console.log("filter", this.categoryArr);
         });
     },
   },
 
-  computed: {
-    checked: {
-      get() {
-        return this.$store.state.isChecked.slice();
-      },
-      set() {
-        return;
-      },
-    },
-  },
+  // computed: {
+  //   checked: {
+  //     get() {
+  //       return this.$store.state.isChecked.slice();
+  //     },
+  //     set() {
+  //       return;
+  //     },
+  //   },
+  // },
 
   created: function () {
     this.getCategory();
-    (this.checked = this.$store.state.isChecked),
-      console.log("ismodal?", this.modalOpen);
+    console.log("ismodal?", this.modalOpen);
     console.log("체크된거", this.checked);
+    this.checked = this.$store.state.isChecked.slice();
   },
   mounted: function () {
     console.log("체크된거 스토어", this.$store.state.isChecked);
-  },
-  updated: function () {
-    // this.isChecked = this.$store.state.isChecked.slice();
-    // this.isChecked = this.temp;
   },
 };
 </script>

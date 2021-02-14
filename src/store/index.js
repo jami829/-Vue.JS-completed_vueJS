@@ -12,7 +12,8 @@ export default new Vuex.Store({
       { id: 2, checked: true },
       { id: 3, checked: true },
     ],
-    feedArr: []
+    feedArr: [],
+    ord: "asc"
   },
 
   mutations: {
@@ -22,10 +23,13 @@ export default new Vuex.Store({
     feeds: function (state, payload) {
       state.feedArr = [...state.feedArr, ...payload]
     },
-    ressetFeeds: function (state) {
+    resetFeeds: function (state) {
       state.feedArr = []
-
+    },
+    handleOrd: function (state, payload) {
+      state.ord = payload
     }
+
   },
   getters: {
     descFeeds: state => {
