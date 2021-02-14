@@ -127,13 +127,13 @@ export default {
   },
   methods: {
     // 무한 스크롤 피드 받아오기: API로부터 받아온 페이지 데이터를 이용해 다음 데이터 로드
-    getFeeds() {
+    async getFeeds() {
       // 데이터를 받아오는 동안 로딩바 렌더
       this.loading = true;
       if (!this.options.params.category) {
         this.feedArr = [];
       } else {
-        this.$axios
+        await this.$axios
           .get("https://problem.comento.kr/api/list", this.options)
           .then((response) => {
             console.log("뭘받아와 겟피드", response.data.data);
@@ -152,6 +152,7 @@ export default {
           });
       }
       // 데이터를 받아오면 로딩바 해제
+
       this.loading = false;
     },
 
@@ -202,7 +203,7 @@ export default {
     // 필터체크로 인해 새로 저장된 값을 store에서 가져오고, 그 값을 상태값인 category 배열에 넣어준다.
     // 그 값으로 feed 리스트들을 axios요청하게 한다.
     // Modal 컴포넌트에서 저장버튼 눌렀을 시 작동.
-    getFilterValue() {
+    async getFilterValue() {
       // 리스트 axios요청을 하기 위해 기본값 재셋팅
       this.$store.commit("resetFeeds");
       this.options.params.category = [];
@@ -218,7 +219,7 @@ export default {
       if (this.isModalOpen) {
         this.openFilter();
       }
-      this.getFeeds();
+      await this.getFeeds();
     },
   },
   // 스크롤 전 리스트
