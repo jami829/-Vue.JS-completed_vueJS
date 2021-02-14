@@ -2,18 +2,17 @@
   <div>
     <Nav />
     <div id="details">
-      <div class="user_email">{{ details.user.email }}</div>
       <div class="container_details">
         <div class="title_details">{{ details.title }}</div>
         <div class="contents_details">{{ details.contents }}</div>
         <div class="createdAt_details">
-          <span>
-            {{ details.user.name }}
-          </span>
-          <span> | </span>
-          <span>
+          <div>
+            {{ details.user.email }}
+          </div>
+          <!-- <span> | </span> -->
+          <div>
             {{ details.created_at.substring(0, 10) }}
-          </span>
+          </div>
         </div>
       </div>
       <div class="container_reply">
@@ -26,7 +25,12 @@
             <div class="division_reply"></div>
             <div class="contens_details">{{ item.contents }}</div>
             <div class="created_at_details_reply">
-              {{ item.created_at.substring(0, 10) }}
+              <div>
+                {{ item.user.email }}
+              </div>
+              <div>
+                {{ item.created_at.substring(0, 10) }}
+              </div>
             </div>
           </div>
         </div>
@@ -77,7 +81,7 @@ export default {
 #details {
   // border: 1px solid #e1e4e7;
   // border-radius: 5px;
-  padding: 50px 150px;
+  padding: 50px 7.8%;
   // margin-bottom: 30px;
 
   .container_details {
@@ -153,6 +157,31 @@ export default {
       .created_at_details_reply {
         color: #adb5bd;
         font-size: 13px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #details {
+    padding: 3%;
+    .container_details {
+      border-radius: unset;
+      border-left: 0;
+      border-right: 0;
+      padding-left: 0%;
+      padding-right: 3% !important;
+    }
+
+    .box_reply {
+      border-radius: unset !important;
+      border-left: 0 !important;
+      border-right: 0 !important;
+      padding-left: 0% !important;
+      padding-right: 0% !important;
+
+      .contens_details {
+        padding-right: 3%;
       }
     }
   }

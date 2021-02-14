@@ -172,4 +172,18 @@ export default {
     }
   }
 }
+
+@media (max-width: 768px) {
+  #contents_filter {
+    width: 340px !important;
+    // height: 268px;
+    position: relative;
+    padding: 15px 30px;
+    background: white;
+  }
+  button {
+    width: 100% !important;
+    float: unset !important;
+  }
+}
 </style>

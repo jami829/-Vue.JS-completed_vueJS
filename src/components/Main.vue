@@ -238,7 +238,8 @@ export default {
 <style lang="scss" scoped>
 #container_main {
   display: flex;
-  margin: 50px 150px;
+  // margin: 50px 150px;
+  margin: 50px 7.8%;
 
   /* 로딩 애니메이션 */
 
@@ -405,14 +406,27 @@ export default {
 
 @media (max-width: 768px) {
   #container_main {
-    display: flex;
-    margin: 50px 150px;
+    // display: flex;
+    // justify-items: center;
+    // align-items: center;
+    margin: unset;
+    // width: 500px;
     #login_btn {
       display: none;
     }
     #contents_box_main {
+      // width: 600px;
       width: 100%;
       padding: unset;
+
+      #filter_box {
+        padding: 10px 30px;
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: unset;
+      }
     }
   }
 }

@@ -19,7 +19,13 @@ export default {
 
   #contents {
     font-size: 16px;
-    padding-left: 150px;
+    padding-left: 7.8%;
+  }
+}
+
+@media (max-width: 768px) {
+  #contents {
+    padding-left: 30px !important;
   }
 }
 </style>
