@@ -12,6 +12,7 @@
 
         <div class="feed_id">
           {{ feed.id }}
+          <!-- 우측 위 숫자에 대한 정보 제공 -->
           <div class="feed_id_info">게시글이 등록된 순서입니다.</div>
         </div>
       </div>

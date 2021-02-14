@@ -323,7 +323,6 @@ export default {
     }
   }
   #contents_box_main {
-    // display: flex;
     padding-left: 40px;
     width: 100%;
 
@@ -398,6 +397,22 @@ export default {
         align-items: center;
         color: gray;
       }
+    }
+  }
+}
+
+// 반응형
+
+@media (max-width: 768px) {
+  #container_main {
+    display: flex;
+    margin: 50px 150px;
+    #login_btn {
+      display: none;
+    }
+    #contents_box_main {
+      width: 100%;
+      padding: unset;
     }
   }
 }
